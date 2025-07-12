@@ -6,7 +6,7 @@ See: https://github.com/TheBlad768/Sonic-Clean-Engine-S.C.E.-
 
 # TO-DO LIST
 
-- [ ] Fix Special Stage music tempo (loc_905C)
+- [ ] Fix Special Stage music tempo S3K: (loc_905C), S3: (loc_7F9A)
 
 # DISCLAIMER
 
