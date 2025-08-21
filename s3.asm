@@ -23,7 +23,7 @@ MSUMode = 0 ; if 1, enable MSU
 		include "Sound/Definitions.asm"
 ; ---------------------------------------------------------------------------
 		
-FixBugs = 0
+FixBugs = 1
 ; If 1, fixes multiple bugs within the game
 
 ;Size_of_Snd_driver_guess = $1300
