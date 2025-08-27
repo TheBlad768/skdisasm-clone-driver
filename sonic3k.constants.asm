@@ -291,9 +291,12 @@ Conveyor_belt_load_array	ds.b $E			; each subtype of hcz conveyor belt uses a di
 			ds.b $12			; unused
 
 ; sound variables
-v_snddriver_ram			ds.b $40C		; start of RAM for the sound driver data
+Snd_driver_RAM			ds.b $40C		; start of RAM for the sound driver data
 
-SegaCD_Mode			= v_snddriver_ram+$400
+SegaCD_Mode			= Snd_driver_RAM+$400
+
+Snd_driver_RAM_end		= *
+
 
 Kos_decomp_buffer		ds.b $1000		; each module in a KosM archive is decompressed here and then DMAed to VRAM
 H_scroll_buffer			ds.b $380		; horizontal scroll table is built up here and then DMAed to VRAM
