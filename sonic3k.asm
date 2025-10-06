@@ -1002,7 +1002,6 @@ HInt:
 		move.l	(V_scroll_value_P2_copy).w,(VDP_data_port).l
 
 		stopZ80
-		stopZ802
 		; Unlike in Sonic 2, the sprite tables are page-flipped in two-player mode.
 		; This fixes a race-condition where incomplete sprite tables can be uploaded
 		; to the VDP on lag frames, causing corrupted sprites to appear.
@@ -1017,8 +1016,8 @@ HInt:
 		dma68kToVDP Sprite_table_P2_alternate,$F800,$280,VRAM
 
 +
-		startZ802
 		startZ80
+
 -
 		move.w	(VDP_control_port).l,d0
 		andi.w	#4,d0	; is a horizontal blank occuring?
