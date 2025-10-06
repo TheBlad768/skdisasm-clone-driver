@@ -20,6 +20,7 @@
 ; ---------------------------------------------------------------------------
 ; Include sound driver macros and functions
 MSUMode = 0 ; if 1, enable MSU
+OptimiseStopZ80	= 2	; if 1, remove stopZ80 and startZ80, if 2, use only for controllers and Hint (no effect on sound driver)
 		include "Sound/Definitions.asm"
 ; ---------------------------------------------------------------------------
 		
@@ -842,7 +843,9 @@ VInt_14:
 		bne.s	loc_A76	; run the following code once every 16 frames
 
 		stopZ80
+		stopZ802
 		bsr.w	Poll_Controllers
+		startZ802
 		startZ80
 
 loc_A76:
@@ -878,7 +881,9 @@ VInt_10:
 
 VInt_8:
 		stopZ80
+		stopZ802
 		bsr.w	Poll_Controllers
+		startZ802
 
 		tst.b	(Water_full_screen_flag).w
 		bne.s	+
@@ -953,7 +958,10 @@ locret_C0C:
 
 VInt_A_C:
 		stopZ80
+		stopZ802
 		bsr.w	Poll_Controllers
+		startZ802
+
 		tst.b	(Water_full_screen_flag).w
 		bne.s	+
 		dma68kToVDP Normal_palette,$0000,$80,CRAM
@@ -1010,7 +1018,9 @@ VInt_12:
 
 VInt_18:
 		stopZ80
+		stopZ802
 		bsr.w	Poll_Controllers
+		startZ802
 
 		dma68kToVDP Normal_palette,$0000,$80,CRAM
 		dma68kToVDP Sprite_table,$F800,$280,VRAM
@@ -1028,7 +1038,9 @@ loc_DEA:
 
 VInt_16:
 		stopZ80
+		stopZ802
 		bsr.w	Poll_Controllers
+		startZ802
 
 		dma68kToVDP Normal_palette,$0000,$80,CRAM
 		dma68kToVDP Sprite_table,$F800,$280,VRAM
@@ -1075,7 +1087,10 @@ VInt_1E:
 
 Do_ControllerPal:
 		stopZ80
+		stopZ802
 		bsr.w	Poll_Controllers
+		startZ802
+
 		tst.b	(Water_full_screen_flag).w
 		bne.s	loc_F20
 		dma68kToVDP Normal_palette,$0000,$80,CRAM
@@ -1164,6 +1179,7 @@ HInt3:
 		lea	(VDP_data_port).l,a1
 		move.w	#$8AFF,VDP_control_port-VDP_data_port(a1)		; Reset HInt timing
 		stopZ80
+		stopZ802
 		movea.l	(Water_palette_data_addr).w,a2
 		moveq	#$C,d0
 		dbf	d0,*	; waste a few cycles here
@@ -1190,6 +1206,7 @@ $$transferColors:
 		dbf	d1,$$transferColors	; repeat for number of colors
 
 $$skipTransfer:
+		startZ802
 		startZ80
 		movem.l	(sp)+,d0-d1/a0-a2
 		tst.b	(Do_Updates_in_H_int).w
@@ -1221,6 +1238,7 @@ HInt5:
 		lea	(VDP_data_port).l,a1
 		move.w	#$8AFF,VDP_control_port-VDP_data_port(a1)
 		stopZ80
+		stopZ802
 		movea.l	(Water_palette_data_addr).w,a2
 		moveq	#$C,d0
 		dbf	d0,*
@@ -1248,6 +1266,7 @@ $$transferColors:
 		dbf	d1,$$transferColors
 
 $$skipTransfer:
+		startZ802
 		startZ80
 		movem.l	(sp)+,d0-d1/a0-a2
 		tst.b	(Do_Updates_in_H_int).w
@@ -1278,6 +1297,7 @@ HInt4:
 		lea	(VDP_data_port).l,a1
 		move.w	#$8AFF,VDP_control_port-VDP_data_port(a1)
 		stopZ80
+		stopZ802
 		movea.l	(Water_palette_data_addr).w,a2
 		moveq	#$1B,d0
 		dbf	d0,*
@@ -1304,6 +1324,7 @@ $$transferColors:
 		dbf	d1,$$transferColors
 
 $$skipTransfer:
+		startZ802
 		startZ80
 		movem.l	(sp)+,d0-d1/a0-a2
 		tst.b	(Do_Updates_in_H_int).w
@@ -1334,6 +1355,7 @@ HInt_6:
 		lea	(VDP_data_port).l,a1
 		move.w	#$8AFF,VDP_control_port-VDP_data_port(a1)
 		stopZ80
+		stopZ802
 		movea.l	(Water_palette_data_addr).w,a2
 		moveq	#$1B,d0
 		dbf	d0,*
@@ -1360,6 +1382,7 @@ $$transferColors:
 		dbf	d1,$$transferColors
 
 $$skipTransfer:
+		startZ802
 		startZ80
 		movem.l	(sp)+,d0-d1/a0-a2
 		tst.b	(Do_Updates_in_H_int).w
@@ -1417,10 +1440,12 @@ HInt2_Do_Updates:
 
 Init_Controllers:
 		stopZ80
+		stopZ802
 		moveq	#$40,d0
 		move.b	d0,(HW_Port_1_Control).l
 		move.b	d0,(HW_Port_2_Control).l
 		move.b	d0,(HW_Expansion_Control).l
+		startZ802
 		startZ80
 		rts
 ; End of function Init_Controllers
@@ -5929,9 +5954,15 @@ loc_4C78:
 		add.w	d0,(_unkFF7C).w
 		bcc.s	loc_4CCC
 		bsr.w	Pause_Game
+
+	if OptimiseStopZ80=2
 		move.w	#$100,(Z80_bus_request).l	; stop the Z80
+	endif
+
 		bsr.w	Poll_Controllers
+		startZ802
 		startZ80
+
 		move.w	#0,(DMA_queue).w
 		move.l	#DMA_queue,(DMA_queue_slot).w
 		lea	(Sprite_table_input).w,a5

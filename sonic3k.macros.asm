@@ -92,14 +92,42 @@ clearRAM macro addr,length
 
 ; tells the Z80 to stop, and waits for it to finish stopping (acquire bus)
 stopZ80 macro
+
+	if OptimiseStopZ80=0
 	move.w	#$100,(Z80_bus_request).l ; stop the Z80
 .loop:	btst	#0,(Z80_bus_request).l
 	bne.s	.loop ; loop until it says it's stopped
+	endif
+
     endm
 
 ; tells the Z80 to start again
 startZ80 macro
+
+	if OptimiseStopZ80=0
 	move.w	#0,(Z80_bus_request).l    ; start the Z80
+	endif
+
+    endm
+
+; tells the Z80 to stop, and waits for it to finish stopping (acquire bus)
+stopZ802 macro
+
+	if OptimiseStopZ80=2
+	move.w	#$100,(Z80_bus_request).l ; stop the Z80
+.loop:	btst	#0,(Z80_bus_request).l
+	bne.s	.loop ; loop until it says it's stopped
+	endif
+
+    endm
+
+; tells the Z80 to start again
+startZ802 macro
+
+	if OptimiseStopZ80=2
+	move.w	#0,(Z80_bus_request).l    ; start the Z80
+	endif
+
     endm
 
 ; function to make a little-endian 16-bit pointer for the Z80 sound driver
@@ -259,84 +287,6 @@ palscriptloop	macro header
 ; macro to run the custom script routine
 palscriptrun	macro header
 	dc.w -$C
-    endm
-
-; ---------------------------------------------------------------------------
-; play a sound effect or music
-; input: track, terminate routine, branch or jump, move operand size
-; ---------------------------------------------------------------------------
-
-music macro track, terminate, byte
-    if ("byte"="0") || ("byte"="")
-	moveq	#signextendB(track),d0
-    else
-	move.w	#(track),d0
-    endif
-      if ("terminate"="0") || ("terminate"="")
-	jsr	(Play_Music).w
-      else
-	jmp	(Play_Music).w
-      endif
-    endm
-
-sfx macro track, terminate, byte
-    if ("byte"="0") || ("byte"="")
-	moveq	#signextendB(track),d0
-    else
-	move.w	#(track),d0
-    endif
-      if ("terminate"="0") || ("terminate"="")
-	jsr	(Play_SFX).w
-      else
-	jmp	(Play_SFX).w
-      endif
-    endm
-
-sfxcont macro track, wait, terminate, byte
-    if ("byte"="0") || ("byte"="")
-	moveq	#signextendB(track),d0
-    else
-	move.w	#(track),d0
-    endif
-	moveq	#signextendB(wait),d1
-      if ("terminate"="0") || ("terminate"="")
-	jsr	(Play_SFX_Continuous).w
-      else
-	jmp	(Play_SFX_Continuous).w
-      endif
-    endm
-
-	; extended music
-emusic macro track, terminate
-	move.w	#(track),d0
-      if ("terminate"="0") || ("terminate"="")
-	jsr	(SMPS_QueueSound1_Extended).w
-      else
-	jmp	(SMPS_QueueSound1_Extended).w
-      endif
-    endm
-
-	; extended sfx
-esfx macro track, terminate
-	move.w	#(track),d0
-      if ("terminate"="0") || ("terminate"="")
-	jsr	(SMPS_QueueSound2_Extended).w
-      else
-	jmp	(SMPS_QueueSound2_Extended).w
-      endif
-    endm
-
-sample macro id, terminate, byte
-    if ("byte"="0") || ("byte"="")
-	moveq	#signextendB(id),d0
-    else
-	move.w	#(id),d0
-    endif
-      if ("terminate"="0") || ("terminate"="")
-	jsr	(SMPS_PlayDACSample).w
-      else
-	jmp	(SMPS_PlayDACSample).w
-      endif
     endm
 
 ; ---------------------------------------------------------------------------
