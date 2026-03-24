@@ -97,6 +97,6 @@ that great care must be taken in modifying Sonic 3 & Knuckles directly and that 
 results. If you are not prepared for that type of task, then it's recommended that the disassembly and its data be used mostly
 for research purposes while work is done using the far more accesible Sonic 1 or Sonic 2 disassemblies as a base.
 
-Check out the Sonic Retro source code:
+Check out the Sonic Retro Disassembly:
 
 - https://github.com/sonicretro/skdisasm
