@@ -100,3 +100,7 @@ for research purposes while work is done using the far more accesible Sonic 1 or
 Check out the Sonic Retro Disassembly:
 
 - https://github.com/sonicretro/skdisasm
+
+## Links
+
+[![Hypercommit](https://img.shields.io/badge/Hypercommit-DB2475)](https://hypercommit.com/skdisasm-clone-driver)
