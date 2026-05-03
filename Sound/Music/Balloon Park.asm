@@ -331,9 +331,6 @@ Snd_BPZ_Loop0A:
 	smpsAlterPitch      $F4
 	smpsJump            Snd_BPZ_Loop0A
 
-; Unreachable
-	smpsStop
-
 ; PSG2 Data
 Snd_BPZ_PSG2:
 	dc.b	nRst, $30
@@ -357,16 +354,9 @@ Snd_BPZ_Loop09:
 	smpsAlterPitch      $F4
 	smpsJump            Snd_BPZ_Loop09
 
-; Unreachable
-	smpsStop
-
 ; PSG3 Data
 Snd_BPZ_PSG3:
 	smpsStop
-
-; Unreachable
-	smpsPSGform         $E7
-	dc.b	nRst, $30
 
 Snd_BPZ_Jump05:
 	dc.b	nRst, $30, nRst, nRst, nRst, nRst, nRst, nRst, nRst, nBb4, $05, nRst
@@ -397,6 +387,7 @@ Snd_BPZ_Jump05:
 
 ; DAC Data
 Snd_BPZ_DAC:
+	smpsPan             panCenter, $00
 	dc.b	dSnareS3, $06, dSnareS3, dKickS3, $0C, dSnareS3, dKickS3
 
 Snd_BPZ_Jump00:

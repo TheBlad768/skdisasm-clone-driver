@@ -133,6 +133,7 @@ Snd_GameOver_PSG3:
 
 ; DAC Data
 Snd_GameOver_DAC:
+	smpsPan             panCenter, $00
 	dc.b	dKickS3, $30, dSnareS3, $20, dKickS3, $10, dKickS3, $20, dKickS3, $10, dSnareS3, dKickS3
 	dc.b	dKickS3, dKickS3, $08, dSnareS3, dSnareS3, dKickS3, dHighTom, dHighTom, dKickS3, dMidTomS3, dMidTomS3, dKickS3
 	dc.b	dLowTomS3, dLowTomS3, dElectricHighTom, dElectricHighTom, dKickS3, dSnareS3, dElectricMidTom, dElectricMidTom, dKickS3, dElectricLowTom, dElectricLowTom, dSnareS3

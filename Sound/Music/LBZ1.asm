@@ -245,6 +245,7 @@ Snd_LBZ1_PSG2:
 
 ; DAC Data
 Snd_LBZ1_DAC:
+	smpsPan             panCenter, $00
 	dc.b	dModLooseKick, $12, nRst, dModLooseKick, $3C
 
 Snd_LBZ1_Loop00:
