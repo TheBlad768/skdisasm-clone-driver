@@ -338,6 +338,7 @@ Snd_ICZ1_Loop17:
 
 ; DAC Data
 Snd_ICZ1_DAC:
+	smpsPan             panCenter, $00
 	dc.b	dDanceStyleKick, $18, dDanceStyleKick, $06, nRst, $12, dDanceStyleKick, $0C, dQuickHit, $06, dQuickHit, dDanceStyleKick
 	dc.b	dQuickHit, dQuickHit, dQuickHit, dDanceStyleKick, $18, dDanceStyleKick, dDanceStyleKick, $06, dQuickHit, dQuickHit, dQuickHit, dDanceStyleKick
 	dc.b	$0C, dBassHey, dDanceStyleKick, $18, dDanceStyleKick, $06, nRst, $12, dDanceStyleKick, $0C, dQuickHit, $06

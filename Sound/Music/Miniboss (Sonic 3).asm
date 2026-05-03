@@ -5,9 +5,6 @@ Snd_S3_Miniboss_Header:
 	smpsHeaderTempo     $01, $44
 
 	smpsHeaderDAC       Snd_S3_Miniboss_DAC
-    if FixMusicAndSFXDataBugs
-	smpsHeaderFM        Snd_S3_Miniboss_FM1,	$02, $03
-    else
 	; The transposition of $C2 is too low, causing the octave calculation to underflow.
 	; In drivers that don't calculate the octave (such as Sonic 1's and Sonic 2's
 	; drivers, which are derived from SMPS 68k Type 1b), this invalid transpose causes
@@ -21,8 +18,8 @@ Snd_S3_Miniboss_Header:
 	; $C2 run through the formula is $02, and the notes that this displacement is used
 	; with are in the low octaves, so the sum will never exceed $60. Because of this,
 	; $02 is the correct displacement.
-	smpsHeaderFM        Snd_S3_Miniboss_FM1,	$C2, $03
-    endif
+	;smpsHeaderFM        Snd_S3_Miniboss_FM1,	$C2, $03
+	smpsHeaderFM        Snd_S3_Miniboss_FM1,	$02, $03 ; Fixed
 	smpsHeaderFM        Snd_S3_Miniboss_FM2,	$0C, $0B
 	smpsHeaderFM        Snd_S3_Miniboss_FM3,	$0C, $10
 	smpsHeaderFM        Snd_S3_Miniboss_FM4,	$00, $14
@@ -177,9 +174,6 @@ Snd_S3_Miniboss_FM2:
 	dc.b	nEb2, $04, nRst, $03, nEb2, $05, nD2, $0C, nCs2, nC2, nB1, nBb1
 	dc.b	nB1, nD2, nEb2, $24, nD2, nCs2, nC2, nB1, nBb1, $6C
 	smpsJump            Snd_S3_Miniboss_FM2
-
-; Unreachable
-	smpsStop
 
 Snd_S3_Miniboss_Call03:
 	dc.b	nEb2, $04, nRst, $03, nEb2, $05, nD2, $0C, nCs2, nD2
@@ -462,9 +456,6 @@ Snd_S3_Miniboss_Loop05:
 	dc.b	nRst, nRst, $60, nRst, nRst
 	smpsJump            Snd_S3_Miniboss_PSG3
 
-; Unreachable
-	smpsStop
-
 Snd_S3_Miniboss_Call0D:
 	dc.b	nMaxPSG1, $07
 	smpsPSGAlterVol     $04
@@ -483,6 +474,7 @@ Snd_S3_Miniboss_Call0D:
 
 ; DAC Data
 Snd_S3_Miniboss_DAC:
+	smpsPan             panCenter, $00
 	dc.b	nRst, $30, $0C, dCrashingNoiseWoo, dComeOn, nRst, dHipHopHitKick, nRst, $54, nRst, $0C, dLowerEchoedClapHit_S3
 	dc.b	dEchoedClapHit_S3, $08, dLowerEchoedClapHit_S3, $04, $0C, $0C, $08, $04, dEchoedClapHit_S3, $0C, dBassHey, dHipHopHitKick
 	dc.b	nRst, $54, nRst, $0C, dLowerEchoedClapHit_S3, dEchoedClapHit_S3, $08, dLowerEchoedClapHit_S3, $04, $0C, dHipHopHitKick, dHipHopHitPowerKick
@@ -509,9 +501,6 @@ Snd_S3_Miniboss_DAC:
 	dc.b	$60, nRst, nRst, $0C, dLowerEchoedClapHit_S3, dEchoedClapHit_S3, $08, dLowerEchoedClapHit_S3, $04, $0C, $0C, $08
 	dc.b	$04, dEchoedClapHit_S3, $18
 	smpsJump            Snd_S3_Miniboss_DAC
-
-; Unreachable
-	smpsStop
 
 Snd_S3_Miniboss_Voices:
 ;	Voice $00
@@ -621,3 +610,4 @@ Snd_S3_Miniboss_Voices:
 	smpsVcDecayLevel    $07, $09, $00, $00
 	smpsVcReleaseRate   $0F, $0F, $0F, $02
 	smpsVcTotalLevel    $00, $02, $00, $03
+

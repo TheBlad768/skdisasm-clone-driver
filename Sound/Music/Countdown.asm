@@ -17,7 +17,6 @@ Snd_Drown_Header:
 ; FM1 Data
 Snd_Drown_FM1:
 	smpsSetvoice        $00
-	smpsNop             $01
 	smpsNoteFill        $03
 	smpsCall            Snd_Drown_Call01
 	smpsSetTempoMod     $40
@@ -29,7 +28,6 @@ Snd_Drown_FM1:
 	smpsSetTempoMod     $08
 	smpsCall            Snd_Drown_Call01
 	dc.b	nC5, $0C
-	smpsNop             $01
 	smpsStop
 
 ; FM2 Data
@@ -46,28 +44,7 @@ Snd_Drown_Loop03:
 ; FM3 Data
 Snd_Drown_FM3:
 	smpsSetvoice        $02
-    if FixMusicAndSFXDataBugs
-	smpsFMAlterVol      $FE
-	smpsCall            Snd_Drown_Call02
 
-Snd_Drown_Loop02:
-	smpsFMAlterVol      $FE
-	smpsCall            Snd_Drown_Call03
-	smpsLoop            $00, $1D, Snd_Drown_Loop02
-	dc.b	nC6, $0C
-	smpsStop
-
-Snd_Drown_Call03:
-	dc.b	smpsNoAttack
-
-Snd_Drown_Call02:
-	dc.b	nC6, $02, smpsNoAttack, nCs6
-	smpsLoop            $01, $04, Snd_Drown_Call03
-	smpsReturn
-    else
-	; SMPS Z80 and SMPS 68k both handle 'smpsNoAttack' slightly differently,
-	; with the former preventing notes from 'keying-on' whilst it is active.
-	; This causes most of this track's notes to be completely silent.
 Snd_Drown_Loop02:
 	smpsFMAlterVol      $FE
 	dc.b	smpsNoAttack, nC6, $02, smpsNoAttack, nCs6, smpsNoAttack, nC6, smpsNoAttack, nCs6, smpsNoAttack, nC6, smpsNoAttack
@@ -75,7 +52,6 @@ Snd_Drown_Loop02:
 	smpsLoop            $00, $1E, Snd_Drown_Loop02
 	dc.b	nC6, $0C
 	smpsStop
-    endif
 
 ; FM4 Data
 Snd_Drown_FM4:
@@ -115,6 +91,7 @@ Snd_Drown_Loop00:
 
 ; DAC Data
 Snd_Drown_DAC:
+	smpsPan             panCenter, $00
 	dc.b	dSnareS3, $0C, dSnareS3, dSnareS3, dSnareS3
 	smpsLoop            $00, $0A, Snd_Drown_DAC
 	dc.b	dSnareS3, $06

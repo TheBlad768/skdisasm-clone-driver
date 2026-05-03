@@ -317,6 +317,7 @@ Snd_SlotBonus_Call05:
 
 ; DAC Data
 Snd_SlotBonus_DAC:
+	smpsPan             panCenter, $00
 	dc.b	dElectricFloorTom, $0C, dElectricFloorTom, dMuffledSnare, $12, dElectricHighTom, $06, dKickS3, dElectricHighTom, dElectricMidTom, dElectricMidTom, dElectricLowTom
 	dc.b	dElectricLowTom, dClapS3, $0C, dElectricFloorTom, dElectricFloorTom, dKickS3, $06, $0C, dKickS3, dSnareS3, dElectricMidTom, $06
 	dc.b	dElectricLowTom, $0C, dClapS3, dElectricFloorTom, dElectricFloorTom, dMuffledSnare, $06, dElectricFloorTom, $0C, $06, dElectricHighTom, dElectricHighTom

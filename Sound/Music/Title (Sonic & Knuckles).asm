@@ -44,9 +44,6 @@ Snd_Title_Jump00:
 	dc.b	nG4, $18, nA4, $09
 	smpsStop
 
-; Unreachable
-	smpsStop
-
 ; FM2 Data
 Snd_Title_FM2:
 	smpsSetvoice        $01
@@ -268,11 +265,9 @@ Snd_Title_PSG3:
 	smpsPSGAlterVol     $FF
 	smpsJump            Snd_Title_Jump00
 
-; Unreachable
-	smpsStop
-
 ; DAC Data
 Snd_Title_DAC:
+	smpsPan             panCenter, $00
 	dc.b	dKickS3, $06, dKickS3, nRst, dKickS3, nRst, nRst, dKickS3, nRst, nRst, nRst, dKickS3
 	dc.b	nRst, dSnareS3, dSnareS3, nRst, nRst, dKickS3, dKickS3, nRst, dKickS3, nRst, nRst, dSnareS3
 	dc.b	nRst, nRst, nRst, dKickS3, nRst, dSnareS3, dSnareS3, dSnareS3, dSnareS3, dCrashCymbal, $06, nRst

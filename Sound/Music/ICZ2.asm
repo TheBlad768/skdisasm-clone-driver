@@ -325,6 +325,7 @@ Snd_ICZ2_Loop15:
 
 ; DAC Data
 Snd_ICZ2_DAC:
+	smpsPan             panCenter, $00
 	dc.b	nRst, $30, nRst, $0C, dReverseFadingWind, $24, nRst, $30, nRst, nRst, nRst, nRst
 	dc.b	nRst, nRst, $30, nRst, $0C, dReverseFadingWind, $24, nRst, $30, nRst, nRst, nRst
 	dc.b	nRst, dQuickHit, $06, dQuickHit, dQuickHit, dQuickHit, dDanceStyleKick, $0C, dQuickHit, $06, dQuickHit

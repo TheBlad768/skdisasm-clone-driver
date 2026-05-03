@@ -538,6 +538,7 @@ Snd_GumBonus_Jump06:
 
 ; DAC Data
 Snd_GumBonus_DAC:
+	smpsPan             panCenter, $00
 	dc.b	dKickS3, $18, dKickS3, dKickS3, dKickS3, dKickS3, dKickS3, $0C, dSnareS3, nRst, $06, dSnareS3
 	dc.b	dKickS3, dSnareS3, dSnareS3, $0C, dSnareS3
 

@@ -1,3 +1,15 @@
+You can use this source code for your projects. No problem. :)
+
+Port by TheBlad768
+
+The sound driver is ported from SCE:
+
+See: https://github.com/TheBlad768/Sonic-Clean-Engine-S.C.E.-
+
+# TO-DO LIST
+
+- [ ] Fix Special Stage music tempo S3K: (loc_905C), S3: (loc_7F9A)
+
 # DISCLAIMER
 
 Any and all content presented in this repository is presented for informational and educational purposes only.
@@ -48,9 +60,6 @@ buildSK         - Builds a byte-perfect copy of the Sonic & Knuckles ROM.
 buildS3Complete - Builds a combined Sonic 3 & Knuckles ROM (using the 'Sonic3_Complete' flag detailed above).
 chkbitperfect   - Builds both an S3 ROM and an S&K ROM, then verifies that they are byte-identical to the original ROMs.
 
-The Lua scripts require Lua version 5.3. Earlier versions will cause errors about integer divisions ('//') and bit-shifts
-('<<', '>>') not being recognised.
-
 
 ## Editing with SonLVL
 
@@ -87,3 +96,7 @@ into account when making any modifications, and require a knowledge of ASM codin
 that great care must be taken in modifying Sonic 3 & Knuckles directly and that you MUST KNOW WHAT YOU ARE DOING to bear fruitful
 results. If you are not prepared for that type of task, then it's recommended that the disassembly and its data be used mostly
 for research purposes while work is done using the far more accesible Sonic 1 or Sonic 2 disassemblies as a base.
+
+Check out the Sonic Retro Disassembly:
+
+- https://github.com/sonicretro/skdisasm

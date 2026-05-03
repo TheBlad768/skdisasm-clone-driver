@@ -45,9 +45,6 @@ Snd_FinalBoss_Loop10:
 	dc.b	nA5, $1E, nRst, $30, nRst
 	smpsJump            Snd_FinalBoss_Loop0F
 
-; Unreachable
-	smpsStop
-
 ; FM2 Data
 Snd_FinalBoss_FM2:
 	smpsSetvoice        $01
@@ -82,9 +79,6 @@ Snd_FinalBoss_Loop0E:
 	dc.b	$0C, nBb2, $48, nRst, $0C
 	smpsJump            Snd_FinalBoss_Loop0D
 
-; Unreachable
-	smpsStop
-
 ; FM3 Data
 Snd_FinalBoss_FM3:
 	smpsSetvoice        $02
@@ -110,9 +104,6 @@ Snd_FinalBoss_Loop0B:
 	dc.b	nG4, $30, nFs4, nE4, nFs4, nB4, nD5, nD5, nFs5, nRst, $0C, nD5
 	dc.b	$48, nRst, $0C
 	smpsJump            Snd_FinalBoss_Loop0A
-
-; Unreachable
-	smpsStop
 
 ; FM4 Data
 Snd_FinalBoss_FM4:
@@ -140,9 +131,6 @@ Snd_FinalBoss_Loop08:
 	dc.b	$48, nRst, $0C
 	smpsJump            Snd_FinalBoss_Loop07
 
-; Unreachable
-	smpsStop
-
 ; FM5 Data
 Snd_FinalBoss_FM5:
 	dc.b	nRst, $09
@@ -167,13 +155,7 @@ Snd_FinalBoss_Loop05:
 	dc.b	nG3, nA3, nB3, nC4, nE4, $0C, nRst, nD5, $03, nRst, nD5, nRst
 	smpsLoop            $00, $03, Snd_FinalBoss_Loop05
 	dc.b	nE3, $02, nF3, nG3, nA3, nB3, nC4, nE4, $0C, nE3, $02, nF3
-	if FixMusicAndSFXDataBugs
-	; Taken from Snd_FinalBoss_Loop10.
-	dc.b	nG3, nA3, nB3, nC4, nE4, $0C, nRst, nRst, nRst, $24
-	else
-	; Bug: The $0D here makes this loop incorrectly.
 	dc.b	nG3, nA3, nB3, nC4, nE4, $0C, nRst, $0D, nRst, $0C, nRst, $24
-	endif
 	smpsSetvoice        $03
 	dc.b	nE4, $12, nB4, nA4, $0C, nD5, $12, nC5, nB4, $0C, nC5, $12
 	dc.b	nD5, nE5, $0C, nD5, $12, nA4, $1E, nE4, $12, nB4, nA4, $0C
@@ -181,11 +163,9 @@ Snd_FinalBoss_Loop05:
 	dc.b	nA5, $1E, nRst, $30, nRst
 	smpsJump            Snd_FinalBoss_Loop04
 
-; Unreachable
-	smpsStop
-
 ; DAC Data
 Snd_FinalBoss_DAC:
+	smpsPan             panCenter, $00
 	dc.b	nRst, $30, nRst, $18
 	smpsLoop            $00, $04, Snd_FinalBoss_DAC
 
@@ -216,9 +196,6 @@ Snd_FinalBoss_Loop03:
 	dc.b	dKickS3, $06, dKickS3, dSnareS3, $24, nRst, dSnareS3, $0C
 	smpsJump            Snd_FinalBoss_Loop01
 
-; Unreachable
-	smpsStop
-
 ; PSG1 Data
 Snd_FinalBoss_PSG1:
 	smpsModSet          $0D, $01, $02, $06
@@ -245,9 +222,6 @@ Snd_FinalBoss_Loop19:
 	dc.b	nRst, $30
 	smpsLoop            $00, $06, Snd_FinalBoss_Loop19
 	smpsJump            Snd_FinalBoss_Loop17
-
-; Unreachable
-	smpsStop
 
 ; PSG2 Data
 Snd_FinalBoss_PSG2:
@@ -288,10 +262,6 @@ Snd_FinalBoss_Loop15:
 	dc.b	nRst, $09, nG5, $03, nRst, nA4, nRst, nD5, nRst, nFs5, nRst, nG5
 	dc.b	nRst, nFs5, nRst, nE5, nRst, nD5, nRst, nA4, nRst, nRst, $30, nRst
 	smpsJump            Snd_FinalBoss_Loop12
-
-; Unreachable
-	smpsStop
-	smpsStop
 
 ; PSG3 Data
 Snd_FinalBoss_PSG3:
